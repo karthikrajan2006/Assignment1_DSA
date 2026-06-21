@@ -76,4 +76,19 @@ static User generate_random_user(void) {
     return u;
 }
 
-/* Remaining function implementation added in next commit */
+int queue_enqueue_random_users(Queue* q, int count) {
+    int i;
+
+    if (q == NULL || count < 0) {
+        return 1; /* invalid arguments */
+    }
+
+    for (i = 0; i < count; i++) {
+        User u = generate_random_user();
+        if (queue_enqueue(q, u) != 0) {
+            return 1; /* enqueue failed (memory failure) */
+        }
+    }
+
+    return 0;
+}
