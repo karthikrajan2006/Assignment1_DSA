@@ -35,4 +35,22 @@ int queue_enqueue(Queue* q, User user) {
     return 0;
 }
 
+/* Remove the head node and hand its data back via outUser */
+int queue_dequeue(Queue* q, User* outUser) {
+    if (queue_is_empty(q)) {
+        return 1; /* nothing to dequeue */
+    }
+
+    QueueNode* oldHead = q->head;
+    *outUser = oldHead->data;
+
+    q->head = oldHead->next;
+    if (q->head == NULL) {
+        q->tail = NULL; /* queue is now empty, reset tail too */
+    }
+
+    free(oldHead);
+    return 0;
+}
+
 /* Remaining function implementations added in upcoming commits */
