@@ -53,4 +53,27 @@ int queue_dequeue(Queue* q, User* outUser) {
     return 0;
 }
 
-/* Remaining function implementations added in upcoming commits */
+/* Fills `username` with `len` random letters/digits + null terminator */
+static void generate_random_username(char* username, int len) {
+    static const char charset[] = "abcdefghijklmnopqrstuvwxyz0123456789";
+    int i;
+
+    for (i = 0; i < len; i++) {
+        int idx = rand() % (sizeof(charset) - 1); /* -1 to exclude null terminator */
+        username[i] = charset[idx];
+    }
+    username[len] = '\0';
+}
+
+/* Builds one random User: random username, level 1-60, random faction */
+static User generate_random_user(void) {
+    User u;
+
+    generate_random_username(u.username, USERNAME_LEN);
+    u.level = (rand() % 60) + 1;        /* 1 - 60 inclusive */
+    u.faction = (Faction)(rand() % 3);  /* 0 = red, 1 = blue, 2 = green */
+
+    return u;
+}
+
+/* Remaining function implementation added in next commit */
